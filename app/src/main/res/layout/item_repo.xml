@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="repoViewModel"
+            type="br.com.tramalho.githubmvvm.presentation.repos.RepoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_margin"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/container_repo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_weight="0.7"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/repo_name_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/astral"
+                    android:textStyle="bold"
+                    android:layout_gravity="top"
+                    android:text="@{repoViewModel.fullName}"
+                    tools:text="@string/app_name"
+                    />
+
+                <TextView
+                    android:id="@+id/repo_description_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black"
+                    android:text="@{repoViewModel.description}"
+                    tools:text="@android:string/VideoView_error_text_invalid_progressive_playback" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_default_margin">
+
+                    <ImageView
+                        android:id="@+id/repo_fork_icon_id"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="@dimen/half_default_margin"
+                        android:layout_marginRight="@dimen/half_default_margin"
+                        android:background="@mipmap/ic_launcher_round" />
+
+                    <TextView
+                        android:id="@+id/repo_fork_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/repo_fork_icon_id"
+                        android:layout_toRightOf="@id/repo_fork_icon_id"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/buttercup"
+                        android:textStyle="bold"
+                        android:text="@{repoViewModel.forksCount}"
+                        tools:text="@android:string/status_bar_notification_info_overflow" />
+
+                    <ImageView
+                        android:id="@+id/repo_star_icon_id"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="@dimen/half_default_margin"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginRight="@dimen/half_default_margin"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:layout_toEndOf="@id/repo_fork_id"
+                        android:layout_toRightOf="@id/repo_fork_id"
+                        android:background="@mipmap/ic_launcher_round" />
+
+                    <TextView
+                        android:id="@+id/repo_star_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/repo_star_icon_id"
+                        android:layout_toRightOf="@+id/repo_star_icon_id"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/buttercup"
+                        android:textStyle="bold"
+                        tools:text="@android:string/status_bar_notification_info_overflow" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/ic_account_circle_black_24px" />
+
+                <TextView
+                    android:id="@+id/repo_nick_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/curious_blue"
+                    tools:text="@string/app_name" />
+
+                <TextView
+                    android:id="@+id/repo_full_name_user_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:minLines="1"
+                    android:maxLines="2"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/french_gray"
+                    tools:text="@android:string/VideoView_error_text_invalid_progressive_playback" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/french_gray" />
+    </LinearLayout>
+</layout>

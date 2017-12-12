@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="astral">#3578A6</color>
+    <color name="curious_blue">#3487C6</color>
+    <color name="buttercup">#E29231</color>
+    <color name="french_gray">#B7BDC4</color>
 </resources>
