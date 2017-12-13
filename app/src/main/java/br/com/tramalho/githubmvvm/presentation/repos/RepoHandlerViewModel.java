@@ -9,7 +9,7 @@ import br.com.tramalho.githubmvvm.data.model.RepoModel;
  * Created by trama on 11/12/17.
  */
 
-public class RepoViewModel extends BaseObservable {
+public class RepoHandlerViewModel extends BaseObservable {
 
     public final ObservableField<String> fullName = new ObservableField<>();
     public final ObservableField<String> description = new ObservableField<>();

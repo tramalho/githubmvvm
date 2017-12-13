@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.tramalho.githubmvvm.R;
@@ -19,8 +21,8 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
 
     private List<RepoModel> itens;
 
-    public RepoListAdapter(List<RepoModel> itens) {
-        this.itens = itens;
+    public RepoListAdapter() {
+        this.itens = Collections.emptyList();
     }
 
     @Override
@@ -45,6 +47,12 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         return itens.size();
     }
 
+    public void updateItens(List<RepoModel> itens) {
+        this.itens = new ArrayList<>();
+        this.itens.addAll(itens);
+        this.notifyDataSetChanged();
+    }
+
     class RepoViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemRepoBinding binding;
@@ -56,12 +64,12 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
 
         public void bind(RepoModel repoModel) {
 
-            RepoViewModel repoViewModel = new RepoViewModel();
+            RepoHandlerViewModel repoHandlerViewModel = new RepoHandlerViewModel();
 
-            binding.setRepoViewModel(repoViewModel);
+            binding.setRepoHandlerViewModel(repoHandlerViewModel);
             binding.executePendingBindings();
 
-            repoViewModel.updateData(repoModel);
+            repoHandlerViewModel.updateData(repoModel);
         }
     }
 }

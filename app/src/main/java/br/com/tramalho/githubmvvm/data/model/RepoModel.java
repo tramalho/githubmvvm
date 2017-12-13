@@ -28,4 +28,13 @@ public class RepoModel {
     public long getForksCount() {
         return forksCount;
     }
+
+    @Override
+    public String toString() {
+        return "RepoModel{" +
+                "fullName='" + fullName + '\'' +
+                ", description='" + description + '\'' +
+                ", forksCount=" + forksCount +
+                '}';
+    }
 }

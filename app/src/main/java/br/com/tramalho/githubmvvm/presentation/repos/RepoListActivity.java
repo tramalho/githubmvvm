@@ -5,15 +5,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
-import java.util.Collections;
+import java.util.List;
 
 import br.com.tramalho.githubmvvm.R;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.databinding.ActivityRepoListBinding;
 
-public class RepoListActivity extends AppCompatActivity {
+public class RepoListActivity extends AppCompatActivity implements RepoListViewModel.ContractView {
 
     private ActivityRepoListBinding binding;
+
+    private RepoListAdapter repoListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +24,14 @@ public class RepoListActivity extends AppCompatActivity {
 
         this.binding.repoListRvId.setLayoutManager(new LinearLayoutManager(this));
 
-        RepoModel repoModel = new RepoModel();
+        this.binding.repoListRvId.setAdapter(new RepoListAdapter());
 
-        this.binding.repoListRvId.setAdapter(new RepoListAdapter(Collections.singletonList(repoModel)));
+        new RepoListViewModel(this).fetchListByFIlter("java", "stars", 1);
+    }
+
+    @Override
+    public void listResult(List<RepoModel> list) {
+        RepoListAdapter adapter = (RepoListAdapter) this.binding.repoListRvId.getAdapter();
+        adapter.updateItens(list);
     }
 }
