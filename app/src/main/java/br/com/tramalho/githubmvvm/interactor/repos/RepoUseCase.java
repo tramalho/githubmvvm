@@ -1,5 +1,7 @@
 package br.com.tramalho.githubmvvm.interactor.repos;
 
+import javax.inject.Inject;
+
 import br.com.tramalho.githubmvvm.data.model.GIthubRepoResponse;
 import br.com.tramalho.githubmvvm.data.model.RepoFilter;
 import br.com.tramalho.githubmvvm.data.repository.GithubReposRepository;
@@ -13,7 +15,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RepoUseCase {
 
-    GithubReposRepository githubReposRepository = new GithubReposRepository();
+    private GithubReposRepository githubReposRepository;
+
+    @Inject
+    public RepoUseCase(GithubReposRepository githubReposRepository) {
+        this.githubReposRepository = githubReposRepository;
+    }
 
     public void execute(RepoFilter repoFilter, DisposableObserver<GIthubRepoResponse> repoSubscriber) {
         githubReposRepository.listByFilter(repoFilter)

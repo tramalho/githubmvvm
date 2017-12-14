@@ -17,6 +17,9 @@ public class RepoModel {
     @SerializedName("forks_count")
     private long forksCount;
 
+    @SerializedName("owner")
+    private RepoOwner owner;
+
     public String getFullName() {
         return fullName;
     }
@@ -27,6 +30,10 @@ public class RepoModel {
 
     public long getForksCount() {
         return forksCount;
+    }
+
+    public RepoOwner getOwner() {
+        return owner;
     }
 
     @Override

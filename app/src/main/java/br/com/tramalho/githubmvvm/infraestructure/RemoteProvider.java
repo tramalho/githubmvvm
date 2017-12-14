@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RemoteProvider {
 
-    public Retrofit get() {
+    private Retrofit getRetrofit() {
 
         OkHttpClient.Builder httpClient = createLogInterceptor();
 
@@ -35,5 +35,10 @@ public class RemoteProvider {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
         return httpClient;
+    }
+
+    public ServiceApi create() {
+        Retrofit retrofit = getRetrofit();
+        return retrofit.create(ServiceApi.class);
     }
 }

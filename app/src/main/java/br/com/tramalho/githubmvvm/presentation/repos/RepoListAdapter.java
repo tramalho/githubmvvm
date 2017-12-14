@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import br.com.tramalho.githubmvvm.R;
@@ -22,7 +21,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
     private List<RepoModel> itens;
 
     public RepoListAdapter() {
-        this.itens = Collections.emptyList();
+        this.itens = new ArrayList<>();
     }
 
     @Override
@@ -48,7 +47,6 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
     }
 
     public void updateItens(List<RepoModel> itens) {
-        this.itens = new ArrayList<>();
         this.itens.addAll(itens);
         this.notifyDataSetChanged();
     }

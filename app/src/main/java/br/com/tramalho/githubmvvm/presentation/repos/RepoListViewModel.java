@@ -5,6 +5,8 @@ import android.util.Log;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.tramalho.githubmvvm.data.model.GIthubRepoResponse;
 import br.com.tramalho.githubmvvm.data.model.RepoFilter;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
@@ -17,14 +19,19 @@ import io.reactivex.observers.DisposableObserver;
 
 public class RepoListViewModel extends BaseObservable {
 
-    private RepoUseCase repoUseCase = new RepoUseCase();
+    private RepoUseCase repoUseCase;
     private RepoListViewModel.ContractView view;
 
-    public RepoListViewModel(ContractView view) {
+    @Inject
+    public RepoListViewModel(RepoUseCase repoUseCase) {
+        this.repoUseCase = repoUseCase;
+    }
+
+    public void setView(ContractView view) {
         this.view = view;
     }
 
-    public void fetchListByFIlter(String language, String sort, long page) {
+    public void fetchListByFilter(String language, String sort, long page) {
         repoUseCase.execute(new RepoFilter(language, sort, page), getRepoSubscriber());
     }
 
@@ -34,24 +41,29 @@ public class RepoListViewModel extends BaseObservable {
 
     public interface ContractView {
         void listResult(List<RepoModel> list);
+
+        void onError(Throwable e);
     }
 
     private class RepoSubscriber extends DisposableObserver<GIthubRepoResponse> {
 
+        private String TAG = RepoSubscriber.class.getSimpleName();
+
         @Override
         public void onNext(GIthubRepoResponse githubRepoResponse) {
             view.listResult(githubRepoResponse.getItens());
-            Log.d("Request", "onNext " + githubRepoResponse.toString());
+            Log.d(TAG, "onNext " + githubRepoResponse.toString());
         }
 
         @Override
         public void onError(Throwable e) {
-            Log.e("Request", "onError", e);
+            view.onError(e);
+            Log.e(TAG, "onError", e);
         }
 
         @Override
         public void onComplete() {
-            Log.d("Request", "onComplete");
+            Log.d(TAG, "onComplete");
         }
     }
 }
