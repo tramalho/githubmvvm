@@ -15,7 +15,10 @@ public class RepoModel {
     private String description = "descrição fake";
 
     @SerializedName("forks_count")
-    private long forksCount;
+    private long forksCount = 0;
+
+    @SerializedName("stargazers_count")
+    private long stargazersCount = 0;
 
     @SerializedName("owner")
     private RepoOwner owner;
@@ -36,12 +39,22 @@ public class RepoModel {
         return owner;
     }
 
+    public void setOwner(RepoOwner owner) {
+        this.owner = owner;
+    }
+
+    public long getStargazersCount() {
+        return stargazersCount;
+    }
+
     @Override
     public String toString() {
         return "RepoModel{" +
                 "fullName='" + fullName + '\'' +
                 ", description='" + description + '\'' +
                 ", forksCount=" + forksCount +
+                ", stargazersCount=" + stargazersCount +
+                ", owner=" + owner +
                 '}';
     }
 }

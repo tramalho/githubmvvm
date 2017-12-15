@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import br.com.tramalho.githubmvvm.data.model.GIthubRepoResponse;
 import br.com.tramalho.githubmvvm.data.model.RepoFilter;
+import br.com.tramalho.githubmvvm.data.model.RepoOwner;
 import br.com.tramalho.githubmvvm.infraestructure.RemoteProvider;
 import br.com.tramalho.githubmvvm.infraestructure.ServiceApi;
 import io.reactivex.Observable;
@@ -29,9 +30,16 @@ public class GithubReposRepository {
 
         String formattedLanguage = String.format(LANGUAGE_FILTER, filter.getLanguage());
 
-        return serviceApi.getReposByFIlter(
+        return serviceApi.getReposByFilter(
                 formattedLanguage,
                 filter.getSort(),
                 filter.getPageNumber());
+    }
+
+    public Observable<RepoOwner> ownerByRepo(String login) {
+
+        ServiceApi serviceApi = remoteProvider.create();
+
+        return serviceApi.getRepoOwner(login);
     }
 }

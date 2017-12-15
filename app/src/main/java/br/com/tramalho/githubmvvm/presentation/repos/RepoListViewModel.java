@@ -7,11 +7,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.tramalho.githubmvvm.data.model.GIthubRepoResponse;
 import br.com.tramalho.githubmvvm.data.model.RepoFilter;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.interactor.repos.RepoUseCase;
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by trama on 12/12/17.
@@ -35,7 +35,7 @@ public class RepoListViewModel extends BaseObservable {
         repoUseCase.execute(new RepoFilter(language, sort, page), getRepoSubscriber());
     }
 
-    private DisposableObserver<GIthubRepoResponse> getRepoSubscriber() {
+    private RepoSubscriber getRepoSubscriber() {
         return new RepoSubscriber();
     }
 
@@ -45,25 +45,25 @@ public class RepoListViewModel extends BaseObservable {
         void onError(Throwable e);
     }
 
-    private class RepoSubscriber extends DisposableObserver<GIthubRepoResponse> {
+    private class RepoSubscriber implements SingleObserver<List<RepoModel>> {
 
         private String TAG = RepoSubscriber.class.getSimpleName();
 
         @Override
-        public void onNext(GIthubRepoResponse githubRepoResponse) {
-            view.listResult(githubRepoResponse.getItens());
-            Log.d(TAG, "onNext " + githubRepoResponse.toString());
+        public void onSubscribe(Disposable d) {
+
+        }
+
+        @Override
+        public void onSuccess(List<RepoModel> repoModels) {
+            view.listResult(repoModels);
+            Log.d(TAG, "onNext " + repoModels.toString());
         }
 
         @Override
         public void onError(Throwable e) {
             view.onError(e);
             Log.e(TAG, "onError", e);
-        }
-
-        @Override
-        public void onComplete() {
-            Log.d(TAG, "onComplete");
         }
     }
 }

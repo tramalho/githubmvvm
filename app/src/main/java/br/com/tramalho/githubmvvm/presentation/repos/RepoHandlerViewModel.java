@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
+import br.com.tramalho.githubmvvm.data.model.RepoOwner;
 
 /**
  * Created by trama on 11/12/17.
@@ -11,9 +12,12 @@ import br.com.tramalho.githubmvvm.data.model.RepoModel;
 
 public class RepoHandlerViewModel extends BaseObservable {
 
-    public final ObservableField<String> fullName = new ObservableField<>();
+    public final ObservableField<String> repoFullName = new ObservableField<>();
     public final ObservableField<String> description = new ObservableField<>();
     public final ObservableField<String> forksCount = new ObservableField<>();
+    public final ObservableField<String> stargazersCount = new ObservableField<>();
+    public final ObservableField<String> ownerLogin = new ObservableField<>();
+    public final ObservableField<String> ownerName = new ObservableField<>();
 
     private RepoModel repoModel;
 
@@ -21,9 +25,14 @@ public class RepoHandlerViewModel extends BaseObservable {
 
         this.repoModel = repoModel;
 
-        fullName.set(this.repoModel.getFullName());
+        RepoOwner owner = this.repoModel.getOwner();
+
+        repoFullName.set(this.repoModel.getFullName());
         description.set(this.repoModel.getDescription());
         forksCount.set(String.valueOf(this.repoModel.getForksCount()));
+        stargazersCount.set(String.valueOf(this.repoModel.getStargazersCount()));
+        ownerLogin.set(owner.getLogin());
+        ownerName.set(owner.getName());
 
         notifyChange();
     }
