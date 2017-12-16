@@ -29,12 +29,18 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
         this.binding = DataBindingUtil.setContentView(this, R.layout.activity_repo_list);
         inject();
         setupRecyclerview();
+        bindingData();
         startData();
     }
 
-    private void startData() {
+    private void bindingData() {
+        this.binding.setViewModel(repoListViewmodel);
         this.repoListViewmodel.setView(this);
-        this.repoListViewmodel.fetchListByFilter("java", "stars", 1);
+        this.binding.executePendingBindings();
+    }
+
+    private void startData() {
+        this.repoListViewmodel.start("java", "stars");
     }
 
     private void inject() {
@@ -60,6 +66,6 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
 
     @Override
     public void onError(Throwable e) {
-        Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
     }
 }

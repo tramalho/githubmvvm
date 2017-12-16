@@ -39,8 +39,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/astral"
                     android:textStyle="bold"
-                    tools:text="@string/app_name"
-                    />
+                    tools:text="@string/app_name" />
 
                 <TextView
                     android:id="@+id/repo_description_id"
