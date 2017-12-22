@@ -1,12 +1,11 @@
 package br.com.tramalho.githubmvvm.presentation.repos;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -55,13 +54,7 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
 
     private void setupRecyclerview() {
         this.binding.repoListRvId.setLayoutManager(new LinearLayoutManager(this));
-        this.binding.repoListRvId.setAdapter(new RepoListAdapter());
-    }
-
-    @Override
-    public void listResult(List<RepoModel> list) {
-        RepoListAdapter adapter = (RepoListAdapter) this.binding.repoListRvId.getAdapter();
-        adapter.updateItens(list);
+        this.binding.repoListRvId.setAdapter(new RepoListAdapter(new ObservableArrayList<RepoModel>()));
     }
 
     @Override

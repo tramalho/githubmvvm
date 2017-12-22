@@ -2,6 +2,7 @@ package br.com.tramalho.githubmvvm.presentation.repos;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableArrayList;
 import android.util.Log;
 import android.view.View;
 
@@ -28,10 +29,12 @@ public class RepoListViewModel extends BaseObservable {
     private RepoUseCase repoUseCase;
     private RepoListViewModel.ContractView view;
 
-    private int progressVisible = View.VISIBLE;
-    private int rvVisible = View.GONE;
+    private int progressVisibility = View.VISIBLE;
+    private int rvVisibility = View.GONE;
+    private int emptyStateVisibility = View.GONE;
 
     private RepoFilter repoFilter;
+    private ObservableArrayList<RepoModel> list = new ObservableArrayList<>();
 
     @Inject
     public RepoListViewModel(RepoUseCase repoUseCase) {
@@ -43,13 +46,23 @@ public class RepoListViewModel extends BaseObservable {
     }
 
     @Bindable
-    public int getProgressVisible() {
-        return progressVisible;
+    public int getProgressVisibility() {
+        return progressVisibility;
     }
 
     @Bindable
-    public int getRvVisible() {
-        return rvVisible;
+    public int getRvVisibility() {
+        return rvVisibility;
+    }
+
+    @Bindable
+    public int getEmptyStateVisibility() {
+        return this.emptyStateVisibility;
+    }
+
+    @Bindable
+    public ObservableArrayList<RepoModel> getList() {
+        return list;
     }
 
     public void start(String language, String sort) {
@@ -66,14 +79,18 @@ public class RepoListViewModel extends BaseObservable {
         return new RepoSubscriber();
     }
 
-    private void showStatus(boolean isSuccess) {
-        this.progressVisible = GONE;
-        this.rvVisible = isSuccess ? VISIBLE : GONE;
-        notifyPropertyChanged(BR.progressVisible);
+    private void showStatus(Status status) {
+        this.progressVisibility = GONE;
+        this.rvVisibility = Status.SUCCESS.equals(status) ? VISIBLE : GONE;
+        this.emptyStateVisibility = Status.SUCCESS.equals(status) ? GONE : VISIBLE;
+        notifyPropertyChanged(BR.progressVisibility);
+        notifyPropertyChanged(BR.rvVisibility);
+        notifyPropertyChanged(BR.emptyStateVisibility);
     }
 
+    private enum Status {SUCCESS, ERROR}
+
     public interface ContractView {
-        void listResult(List<RepoModel> list);
 
         void onError(Throwable e);
     }
@@ -89,15 +106,15 @@ public class RepoListViewModel extends BaseObservable {
 
         @Override
         public void onSuccess(List<RepoModel> repoModels) {
-            showStatus(true);
-            view.listResult(repoModels);
+            list.addAll(repoModels);
+            showStatus(Status.SUCCESS);
             Log.d(TAG, "onSuccess " + repoModels.toString());
         }
 
         @Override
         public void onError(Throwable e) {
-            showStatus(false);
             view.onError(e);
+            showStatus(Status.ERROR);
             Log.e(TAG, "onError", e);
         }
     }

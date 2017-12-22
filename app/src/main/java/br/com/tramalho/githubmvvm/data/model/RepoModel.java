@@ -9,16 +9,19 @@ import com.google.gson.annotations.SerializedName;
 public class RepoModel {
 
     @SerializedName("full_name")
-    private String fullName = "Teste Repositorio";
+    private String fullName = "";
 
     @SerializedName("description")
-    private String description = "descrição fake";
+    private String description = "";
 
     @SerializedName("forks_count")
     private long forksCount = 0;
 
     @SerializedName("stargazers_count")
     private long stargazersCount = 0;
+
+    @SerializedName("avatar_url")
+    private String avatarUrl = "";
 
     @SerializedName("owner")
     private RepoOwner owner;
@@ -45,6 +48,10 @@ public class RepoModel {
 
     public long getStargazersCount() {
         return stargazersCount;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
     @Override

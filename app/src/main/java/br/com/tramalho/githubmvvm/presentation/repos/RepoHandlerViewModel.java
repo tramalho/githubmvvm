@@ -18,6 +18,8 @@ public class RepoHandlerViewModel extends BaseObservable {
     public final ObservableField<String> stargazersCount = new ObservableField<>();
     public final ObservableField<String> ownerLogin = new ObservableField<>();
     public final ObservableField<String> ownerName = new ObservableField<>();
+    public final ObservableField<String> avatarRepo = new ObservableField<>();
+
 
     private RepoModel repoModel;
 
@@ -33,6 +35,7 @@ public class RepoHandlerViewModel extends BaseObservable {
         stargazersCount.set(String.valueOf(this.repoModel.getStargazersCount()));
         ownerLogin.set(owner.getLogin());
         ownerName.set(owner.getName());
+        avatarRepo.set(this.repoModel.getAvatarUrl());
 
         notifyChange();
     }

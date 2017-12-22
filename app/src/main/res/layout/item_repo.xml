@@ -119,7 +119,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
-                    app:srcCompat="@drawable/ic_account_circle_black_24px" />
+                    app:imageUrl="@{repoHandlerViewModel.avatarRepo}"
+                    tools:srcCompat="@drawable/ic_account_circle_black_24px" />
 
                 <TextView
                     android:id="@+id/repo_nick_id"

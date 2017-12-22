@@ -1,11 +1,11 @@
 package br.com.tramalho.githubmvvm.presentation.repos;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableArrayList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.tramalho.githubmvvm.R;
@@ -18,10 +18,10 @@ import br.com.tramalho.githubmvvm.databinding.ItemRepoBinding;
 
 public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> {
 
-    private List<RepoModel> itens;
+    private ObservableArrayList<RepoModel> itens;
 
-    public RepoListAdapter() {
-        this.itens = new ArrayList<>();
+    public RepoListAdapter(ObservableArrayList<RepoModel> itens) {
+        this.itens = itens;
     }
 
     @Override

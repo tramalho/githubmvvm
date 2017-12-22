@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">githubmvvm</string>
+    <string name="not_itens_to_show">Não existem itens para exibição</string>
 </resources>

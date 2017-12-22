@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -17,13 +18,22 @@
             android:id="@+id/repo_list_rv_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.rvVisible, default = gone}" />
+            android:visibility="@{viewModel.rvVisibility, default = gone}"
+            bind:itens="@{viewModel.list}" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="@{viewModel.progressVisible, default=visible}" />
+            android:visibility="@{viewModel.progressVisibility, default=visible}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/not_itens_to_show"
+            android:visibility="@{viewModel.emptyStateVisibility, default=gone}" />
 
     </RelativeLayout>
 </layout>

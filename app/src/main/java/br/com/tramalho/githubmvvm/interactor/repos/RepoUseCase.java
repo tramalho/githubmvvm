@@ -65,7 +65,8 @@ public class RepoUseCase {
             @Override
             public Observable<RepoOwner> apply(RepoModel repoModel) throws Exception {
                 RepoOwner owner = repoModel.getOwner();
-                return githubReposRepository.ownerByRepo(owner.getLogin());
+                //return githubReposRepository.ownerByRepo(owner.getLogin());
+                return Observable.just(owner);
             }
         };
     }
