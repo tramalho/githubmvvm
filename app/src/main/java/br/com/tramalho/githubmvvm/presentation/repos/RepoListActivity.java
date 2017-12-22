@@ -5,6 +5,7 @@ import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -53,8 +54,19 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
     }
 
     private void setupRecyclerview() {
-        this.binding.repoListRvId.setLayoutManager(new LinearLayoutManager(this));
-        this.binding.repoListRvId.setAdapter(new RepoListAdapter(new ObservableArrayList<RepoModel>()));
+
+        RecyclerView repoListRvId = this.binding.repoListRvId;
+
+        repoListRvId.setLayoutManager(new LinearLayoutManager(this));
+
+        repoListRvId.setAdapter(new RepoListAdapter(new ObservableArrayList<RepoModel>()));
+
+        repoListRvId.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                repoListViewmodel.next();
+            }
+        });
     }
 
     @Override

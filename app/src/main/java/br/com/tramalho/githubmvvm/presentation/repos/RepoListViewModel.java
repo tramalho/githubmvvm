@@ -35,6 +35,7 @@ public class RepoListViewModel extends BaseObservable {
 
     private RepoFilter repoFilter;
     private ObservableArrayList<RepoModel> list = new ObservableArrayList<>();
+    private int loadMoreVisibility = View.GONE;
 
     @Inject
     public RepoListViewModel(RepoUseCase repoUseCase) {
@@ -61,16 +62,23 @@ public class RepoListViewModel extends BaseObservable {
     }
 
     @Bindable
+    public int getLoadMoreVisibility() {
+        return this.loadMoreVisibility;
+    }
+
+    @Bindable
     public ObservableArrayList<RepoModel> getList() {
         return list;
     }
 
     public void start(String language, String sort) {
         repoFilter = new RepoFilter(language, sort, 0);
-        next();
+        repoUseCase.execute(this.repoFilter, getRepoSubscriber());
     }
 
     public void next() {
+        this.loadMoreVisibility = VISIBLE;
+        notifyPropertyChanged(BR.loadMoreVisibility);
         this.repoFilter.setPageNumber(1 + this.repoFilter.getPageNumber());
         repoUseCase.execute(this.repoFilter, getRepoSubscriber());
     }
@@ -80,12 +88,17 @@ public class RepoListViewModel extends BaseObservable {
     }
 
     private void showStatus(Status status) {
+
         this.progressVisibility = GONE;
+        this.loadMoreVisibility = GONE;
+
         this.rvVisibility = Status.SUCCESS.equals(status) ? VISIBLE : GONE;
         this.emptyStateVisibility = Status.SUCCESS.equals(status) ? GONE : VISIBLE;
+
         notifyPropertyChanged(BR.progressVisibility);
         notifyPropertyChanged(BR.rvVisibility);
         notifyPropertyChanged(BR.emptyStateVisibility);
+        notifyPropertyChanged(BR.loadMoreVisibility);
     }
 
     private enum Status {SUCCESS, ERROR}
@@ -101,7 +114,6 @@ public class RepoListViewModel extends BaseObservable {
 
         @Override
         public void onSubscribe(Disposable d) {
-
         }
 
         @Override
