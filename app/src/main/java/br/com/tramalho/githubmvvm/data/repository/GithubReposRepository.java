@@ -1,8 +1,11 @@
 package br.com.tramalho.githubmvvm.data.repository;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.tramalho.githubmvvm.data.model.GIthubRepoResponse;
+import br.com.tramalho.githubmvvm.data.model.PullModel;
 import br.com.tramalho.githubmvvm.data.model.RepoFilter;
 import br.com.tramalho.githubmvvm.data.model.RepoOwner;
 import br.com.tramalho.githubmvvm.infraestructure.RemoteProvider;
@@ -41,5 +44,13 @@ public class GithubReposRepository {
         ServiceApi serviceApi = remoteProvider.create();
 
         return serviceApi.getRepoOwner(login);
+    }
+
+    public Observable<List<PullModel>> pullRequestRepo(String creator, String repo) {
+
+        ServiceApi serviceApi = remoteProvider.create();
+
+        return serviceApi.getPullRequests(creator, repo);
+
     }
 }

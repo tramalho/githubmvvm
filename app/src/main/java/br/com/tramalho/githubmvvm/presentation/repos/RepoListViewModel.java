@@ -14,6 +14,7 @@ import br.com.tramalho.githubmvvm.BR;
 import br.com.tramalho.githubmvvm.data.model.RepoFilter;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.interactor.repos.RepoUseCase;
+import br.com.tramalho.githubmvvm.presentation.Status;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
@@ -73,14 +74,14 @@ public class RepoListViewModel extends BaseObservable {
 
     public void start(String language, String sort) {
         repoFilter = new RepoFilter(language, sort, 0);
-        repoUseCase.execute(this.repoFilter, getRepoSubscriber());
+        repoUseCase.retriveRepos(this.repoFilter, getRepoSubscriber());
     }
 
     public void next() {
         this.loadMoreVisibility = VISIBLE;
         notifyPropertyChanged(BR.loadMoreVisibility);
         this.repoFilter.setPageNumber(1 + this.repoFilter.getPageNumber());
-        repoUseCase.execute(this.repoFilter, getRepoSubscriber());
+        repoUseCase.retriveRepos(this.repoFilter, getRepoSubscriber());
     }
 
     private RepoSubscriber getRepoSubscriber() {
@@ -100,8 +101,6 @@ public class RepoListViewModel extends BaseObservable {
         notifyPropertyChanged(BR.emptyStateVisibility);
         notifyPropertyChanged(BR.loadMoreVisibility);
     }
-
-    private enum Status {SUCCESS, ERROR}
 
     public interface ContractView {
 

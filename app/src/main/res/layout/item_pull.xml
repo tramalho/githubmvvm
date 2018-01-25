@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewlModel"
+            type="br.com.tramalho.githubmvvm.presentation.repos.detail.PullHandlerViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin">
+
+        <TextView
+            android:id="@+id/pull_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:text="@{viewlModel.pullName}"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/astral"
+            android:textStyle="bold"
+            tools:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/pull_description_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pull_name_id"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="1"
+            android:text="@{viewlModel.description}"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black"
+            tools:text="@android:string/VideoView_error_text_invalid_progressive_playback" />
+
+
+        <RelativeLayout
+            android:id="@+id/pull_user_info_id"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/pull_description_id"
+            android:layout_marginTop="@dimen/half_default_margin">
+
+            <ImageView
+                android:id="@+id/pull_user_avatar_id"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/half_default_margin"
+                android:layout_marginRight="@dimen/half_default_margin"
+                app:imageUrl="@{viewlModel.avatarOwnerPull}"
+                tools:srcCompat="@drawable/ic_account_circle_black_24px" />
+
+
+            <TextView
+                android:id="@+id/repo_nick_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/pull_user_avatar_id"
+                android:layout_toRightOf="@+id/pull_user_avatar_id"
+                android:text="@{viewlModel.ownerLoginPull}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/curious_blue"
+                tools:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/pull_date_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/repo_nick_id"
+                android:layout_alignStart="@+id/repo_nick_id"
+                android:layout_below="@+id/repo_nick_id"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:minLines="1"
+                android:text="@{viewlModel.createdAt}"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/french_gray"
+                tools:text="@android:string/VideoView_error_text_invalid_progressive_playback" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/pull_user_info_id"
+            android:layout_marginTop="@dimen/default_margin"
+            android:background="@color/french_gray" />
+    </RelativeLayout>
+</layout>

@@ -1,4 +1,4 @@
-package br.com.tramalho.githubmvvm.presentation.repos;
+package br.com.tramalho.githubmvvm.presentation;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import br.com.tramalho.githubmvvm.R;
-import br.com.tramalho.githubmvvm.data.model.RepoModel;
 
 /**
  * Created by trama on 15/12/17.
@@ -31,8 +30,8 @@ public class BinderUtils {
     }
 
     @BindingAdapter("bind:itens")
-    public static void bindItens(RecyclerView recyclerView, ObservableArrayList<RepoModel> list) {
-        RepoListAdapter adapter = (RepoListAdapter) recyclerView.getAdapter();
+    public static void bindItens(RecyclerView recyclerView, ObservableArrayList<?> list) {
+        CustomAdapter adapter = (CustomAdapter) recyclerView.getAdapter();
         adapter.updateItens(list);
     }
 }

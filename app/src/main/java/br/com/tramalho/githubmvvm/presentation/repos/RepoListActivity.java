@@ -29,11 +29,11 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
         this.binding = DataBindingUtil.setContentView(this, R.layout.activity_repo_list);
         inject();
         setupRecyclerview();
-        bindingData();
+        binding();
         startData();
     }
 
-    private void bindingData() {
+    private void binding() {
         this.binding.setViewModel(repoListViewmodel);
         this.repoListViewmodel.setView(this);
         this.binding.executePendingBindings();

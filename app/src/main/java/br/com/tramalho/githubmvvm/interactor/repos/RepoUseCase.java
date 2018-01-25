@@ -7,11 +7,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.tramalho.githubmvvm.data.model.GIthubRepoResponse;
+import br.com.tramalho.githubmvvm.data.model.PullModel;
 import br.com.tramalho.githubmvvm.data.model.RepoFilter;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.data.model.RepoOwner;
 import br.com.tramalho.githubmvvm.data.repository.GithubReposRepository;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.BiFunction;
@@ -32,7 +34,18 @@ public class RepoUseCase {
         this.githubReposRepository = githubReposRepository;
     }
 
-    public void execute(RepoFilter repoFilter, SingleObserver<List<RepoModel>> repoSubscriber) {
+    public void retrivePullRequests(RepoModel repoModel, Observer<List<PullModel>> repoSubscriber) {
+        RepoOwner owner = repoModel.getOwner();
+        Observable<List<PullModel>> repoObservable =
+                this.githubReposRepository.pullRequestRepo(owner.getLogin(), repoModel.getName());
+
+        repoObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(repoSubscriber);
+    }
+
+    public void retriveRepos(RepoFilter repoFilter, SingleObserver<List<RepoModel>> repoSubscriber) {
         Observable<GIthubRepoResponse> repoObservable = githubReposRepository.listByFilter(repoFilter);
         repoObservable
                 //get list of repoModels
@@ -92,6 +105,4 @@ public class RepoUseCase {
             }
         };
     }
-
-
 }

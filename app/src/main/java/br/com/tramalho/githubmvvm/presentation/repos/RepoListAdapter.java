@@ -6,17 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.List;
+import java.util.Collection;
 
 import br.com.tramalho.githubmvvm.R;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.databinding.ItemRepoBinding;
+import br.com.tramalho.githubmvvm.presentation.CustomAdapter;
 
 /**
  * Created by trama on 11/12/17.
  */
 
-public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> {
+public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> implements CustomAdapter {
 
     private ObservableArrayList<RepoModel> itens;
 
@@ -46,8 +47,9 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         return itens.size();
     }
 
-    public void updateItens(List<RepoModel> itens) {
-        this.itens.addAll(itens);
+    @Override
+    public void updateItens(ObservableArrayList<?> list) {
+        this.itens.addAll((Collection<? extends RepoModel>) list);
         this.notifyDataSetChanged();
     }
 

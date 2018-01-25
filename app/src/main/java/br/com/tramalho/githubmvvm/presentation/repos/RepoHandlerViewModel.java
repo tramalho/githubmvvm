@@ -2,9 +2,12 @@ package br.com.tramalho.githubmvvm.presentation.repos;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
+import android.util.Log;
+import android.view.View;
 
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.data.model.RepoOwner;
+import br.com.tramalho.githubmvvm.presentation.repos.detail.PullDetailActivity;
 
 /**
  * Created by trama on 11/12/17.
@@ -38,5 +41,10 @@ public class RepoHandlerViewModel extends BaseObservable {
         avatarRepo.set(this.repoModel.getAvatarUrl());
 
         notifyChange();
+    }
+
+    public void onItemClick(View view) {
+        PullDetailActivity.getLanchingActivity(view.getContext(), this.repoModel);
+        Log.d(this.getClass().getSimpleName(), "click");
     }
 }
