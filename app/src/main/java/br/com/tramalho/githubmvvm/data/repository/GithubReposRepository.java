@@ -51,6 +51,5 @@ public class GithubReposRepository {
         ServiceApi serviceApi = remoteProvider.create();
 
         return serviceApi.getPullRequests(creator, repo);
-
     }
 }
