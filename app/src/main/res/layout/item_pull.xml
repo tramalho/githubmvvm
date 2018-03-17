@@ -13,7 +13,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin">
+        android:layout_margin="@dimen/default_margin"
+        android:onClick="@{viewlModel::onClickPullItem}">
 
         <TextView
             android:id="@+id/pull_name_id"

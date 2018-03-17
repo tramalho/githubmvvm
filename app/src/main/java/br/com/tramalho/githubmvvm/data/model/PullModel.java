@@ -12,6 +12,9 @@ public class PullModel {
     private String body;
     private PullUser user;
 
+    @SerializedName("html_url")
+    private String htmlUrl;
+
     @SerializedName("created_at")
     private String createdAt;
 
@@ -29,5 +32,9 @@ public class PullModel {
 
     public PullUser getUser() {
         return user;
+    }
+
+    public String getHtmlUrl() {
+        return htmlUrl;
     }
 }

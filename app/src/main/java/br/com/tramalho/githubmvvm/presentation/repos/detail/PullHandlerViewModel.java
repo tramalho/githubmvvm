@@ -1,7 +1,11 @@
 package br.com.tramalho.githubmvvm.presentation.repos.detail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
+import android.net.Uri;
+import android.view.View;
 
 import br.com.tramalho.githubmvvm.data.model.PullModel;
 import br.com.tramalho.githubmvvm.data.model.PullUser;
@@ -17,9 +21,12 @@ public class PullHandlerViewModel extends BaseObservable {
     public final ObservableField<String> ownerLoginPull = new ObservableField<>();
     public final ObservableField<String> createdAt = new ObservableField<>();
     public final ObservableField<String> avatarOwnerPull = new ObservableField<>();
+    private PullModel model;
 
 
     public void updateData(PullModel model) {
+
+        this.model = model;
 
         PullUser user = model.getUser();
 
@@ -30,6 +37,12 @@ public class PullHandlerViewModel extends BaseObservable {
         avatarOwnerPull.set(user.getAvatarUrl());
 
         notifyChange();
+    }
+
+    public void onClickPullItem(View view) {
+        Context context = view.getContext();
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(this.model.getHtmlUrl()));
+        context.startActivity(browserIntent);
     }
 
 }
