@@ -12,13 +12,11 @@ import android.support.v7.widget.RecyclerView;
 
 import javax.inject.Inject;
 
+import br.com.tramalho.githubmvvm.CustomApplication;
 import br.com.tramalho.githubmvvm.R;
 import br.com.tramalho.githubmvvm.data.model.PullModel;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.databinding.ActivityPullDetailBinding;
-import br.com.tramalho.githubmvvm.di.component.DaggerRepoDetailsViewModelComponent;
-import br.com.tramalho.githubmvvm.di.component.RepoDetailsViewModelComponent;
-import br.com.tramalho.githubmvvm.di.module.RepoDetailsViewModelModule;
 
 public class PullDetailActivity extends AppCompatActivity {
 
@@ -72,14 +70,7 @@ public class PullDetailActivity extends AppCompatActivity {
     }
 
     private void inject() {
-
-        RepoDetailsViewModelComponent component =
-                DaggerRepoDetailsViewModelComponent
-                        .builder()
-                        .repoDetailsViewModelModule(new RepoDetailsViewModelModule())
-                        .build();
-
-        component.inject(this);
+        CustomApplication.builder().inject(this);
     }
 
     private void setupViews() {

@@ -10,12 +10,10 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import br.com.tramalho.githubmvvm.CustomApplication;
 import br.com.tramalho.githubmvvm.R;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
 import br.com.tramalho.githubmvvm.databinding.ActivityRepoListBinding;
-import br.com.tramalho.githubmvvm.di.component.DaggerRepoListViewModelComponent;
-import br.com.tramalho.githubmvvm.di.component.RepoListViewModelComponent;
-import br.com.tramalho.githubmvvm.di.module.RepoListViewModelModule;
 
 public class RepoListActivity extends AppCompatActivity implements RepoListViewModel.ContractView {
 
@@ -44,13 +42,7 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
     }
 
     private void inject() {
-        RepoListViewModelComponent component =
-                DaggerRepoListViewModelComponent
-                        .builder()
-                        .repoListViewModelModule(new RepoListViewModelModule())
-                        .build();
-
-        component.inject(this);
+        CustomApplication.builder().inject(this);
     }
 
     private void setupRecyclerview() {
