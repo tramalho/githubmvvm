@@ -12,7 +12,7 @@ import android.support.v7.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import br.com.tramalho.githubmvvm.CustomApplication;
+import br.com.tramalho.githubmvvm.CustomApplicationImpl;
 import br.com.tramalho.githubmvvm.R;
 import br.com.tramalho.githubmvvm.data.model.PullModel;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
@@ -70,7 +70,8 @@ public class PullDetailActivity extends AppCompatActivity {
     }
 
     private void inject() {
-        CustomApplication.builder().inject(this);
+        CustomApplicationImpl application = (CustomApplicationImpl) getApplication();
+        application.builder().inject(this);
     }
 
     private void setupViews() {

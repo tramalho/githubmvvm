@@ -4,6 +4,7 @@ import br.com.tramalho.githubmvvm.di.component.DaggerRepoDetailsViewModelCompone
 import br.com.tramalho.githubmvvm.di.component.DaggerRepoListViewModelComponent;
 import br.com.tramalho.githubmvvm.di.component.RepoDetailsViewModelComponent;
 import br.com.tramalho.githubmvvm.di.component.RepoListViewModelComponent;
+import br.com.tramalho.githubmvvm.di.module.RemoteProviderModule;
 import br.com.tramalho.githubmvvm.presentation.repos.RepoListActivity;
 import br.com.tramalho.githubmvvm.presentation.repos.detail.PullDetailActivity;
 
@@ -17,6 +18,7 @@ public class ComponentBuilder {
         RepoListViewModelComponent component =
                 DaggerRepoListViewModelComponent
                         .builder()
+                        .remoteProviderModule(getRemoteProviderModule())
                         .build();
 
         component.inject(repoListActivity);
@@ -26,8 +28,13 @@ public class ComponentBuilder {
         RepoDetailsViewModelComponent component =
                 DaggerRepoDetailsViewModelComponent
                         .builder()
+                        .remoteProviderModule(getRemoteProviderModule())
                         .build();
 
         component.inject(pullDetailActivity);
+    }
+
+    protected RemoteProviderModule getRemoteProviderModule() {
+        return new RemoteProviderModule();
     }
 }

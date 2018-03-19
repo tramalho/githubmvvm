@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.Collection;
+import java.util.List;
 
 import br.com.tramalho.githubmvvm.R;
 import br.com.tramalho.githubmvvm.data.model.RepoModel;
@@ -19,9 +20,9 @@ import br.com.tramalho.githubmvvm.presentation.CustomAdapter;
 
 public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> implements CustomAdapter {
 
-    private ObservableArrayList<RepoModel> itens;
+    private List<RepoModel> itens;
 
-    public RepoListAdapter(ObservableArrayList<RepoModel> itens) {
+    public RepoListAdapter(List<RepoModel> itens) {
         this.itens = itens;
     }
 

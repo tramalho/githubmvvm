@@ -37,6 +37,7 @@ public class RepoListViewModel extends BaseObservable {
     private RepoFilter repoFilter;
     private ObservableArrayList<RepoModel> list = new ObservableArrayList<>();
     private int loadMoreVisibility = View.GONE;
+    private boolean isLoadMore = false;
 
     @Inject
     public RepoListViewModel(RepoUseCase repoUseCase) {
@@ -73,15 +74,19 @@ public class RepoListViewModel extends BaseObservable {
     }
 
     public void start(String language, String sort) {
+        isLoadMore = false;
         repoFilter = new RepoFilter(language, sort, 0);
         repoUseCase.retriveRepos(this.repoFilter, getRepoSubscriber());
     }
 
     public void next() {
-        this.loadMoreVisibility = VISIBLE;
-        notifyPropertyChanged(BR.loadMoreVisibility);
-        this.repoFilter.setPageNumber(1 + this.repoFilter.getPageNumber());
-        repoUseCase.retriveRepos(this.repoFilter, getRepoSubscriber());
+        if (isLoadMore) {
+            this.loadMoreVisibility = VISIBLE;
+            notifyPropertyChanged(BR.loadMoreVisibility);
+            this.repoFilter.setPageNumber(1 + this.repoFilter.getPageNumber());
+            repoUseCase.retriveRepos(this.repoFilter, getRepoSubscriber());
+            isLoadMore = false;
+        }
     }
 
     private RepoSubscriber getRepoSubscriber() {
@@ -120,6 +125,7 @@ public class RepoListViewModel extends BaseObservable {
             list.addAll(repoModels);
             showStatus(Status.SUCCESS);
             Log.d(TAG, "onSuccess " + repoModels.toString());
+            isLoadMore = true;
         }
 
         @Override

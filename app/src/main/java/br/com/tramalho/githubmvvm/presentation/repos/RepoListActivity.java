@@ -1,12 +1,13 @@
 package br.com.tramalho.githubmvvm.presentation.repos;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -42,7 +43,9 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
     }
 
     private void inject() {
-        CustomApplication.builder().inject(this);
+
+        CustomApplication application = (CustomApplication) getApplication();
+        application.builder().inject(this);
     }
 
     private void setupRecyclerview() {
@@ -51,7 +54,7 @@ public class RepoListActivity extends AppCompatActivity implements RepoListViewM
 
         repoListRvId.setLayoutManager(new LinearLayoutManager(this));
 
-        repoListRvId.setAdapter(new RepoListAdapter(new ObservableArrayList<RepoModel>()));
+        repoListRvId.setAdapter(new RepoListAdapter(new ArrayList<RepoModel>()));
 
         repoListRvId.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
